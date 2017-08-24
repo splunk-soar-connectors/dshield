@@ -1,7 +1,7 @@
 # --
 # File: dshield/dshield_connector.py
 #
-# Copyright (c) Phantom Cyber Corporation, 2016
+# Copyright (c) Phantom Cyber Corporation, 2016-2017
 #
 # This unpublished material is proprietary to Phantom Cyber.
 # All rights reserved. The methods and
@@ -24,8 +24,6 @@ from dshield_consts import *
 
 import requests
 import simplejson as json
-
-requests.packages.urllib3.disable_warnings()
 
 
 class CertlyConnector(BaseConnector):
