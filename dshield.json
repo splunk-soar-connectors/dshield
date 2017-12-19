@@ -1,12 +1,12 @@
 {
-    "appid"    : "efc1ac17-c75c-4c24-8233-161e68e8e7f4",
-    "name"   : "DShield",
+    "appid": "efc1ac17-c75c-4c24-8233-161e68e8e7f4",
+    "name": "DShield",
     "description": "Implements <b>lookup ip</b> action by querying the DShield web API",
     "publisher": "Phantom",
     "type": "reputation",
     "main_module": "dshield_connector.pyc",
-    "app_version": "1.0.6",
-    "utctime_updated": "2017-08-24T03:03:58.000000Z",
+    "app_version": "1.0.7",
+    "utctime_updated": "2017-12-19T23:40:49.000000Z",
     "package_name": "phantom_dshield",
     "product_vendor": "DShield",
     "product_name": "DShield",
@@ -15,196 +15,206 @@
     "logo": "dshield.png",
     "license": "Copyright (c) Phantom Cyber Corporation 2016-2017",
     "configuration": {
-      "ip": {
-        "description": "IP to Lookup for Test Connectivity", 
-        "data_type": "string",
-        "order": 0,
-        "required": false,
-        "default": "8.8.8.8"
-      }
+        "ip": {
+            "description": "IP to Lookup for Test Connectivity",
+            "data_type": "string",
+            "order": 0,
+            "required": false,
+            "default": "8.8.8.8"
+        }
     },
     "actions": [
-      {
-        "action": "test connectivity",
-        "description": "Validate the asset configuration for connectivity",
-        "type": "test",
-        "identifier": "test_asset_connectivity",
-        "read_only": true,
-        "parameters": {
+        {
+            "action": "test connectivity",
+            "description": "Validate the asset configuration for connectivity",
+            "type": "test",
+            "identifier": "test_asset_connectivity",
+            "read_only": true,
+            "parameters": {},
+            "output": [],
+            "versions": "EQ(*)"
         },
-        "output": [
-        ],
-        "versions":"EQ(*)"
-      },
-      {
-        "action": "lookup ip",
-        "description": "Get IP info from DShield",
-        "type": "investigate",
-        "verbose": "The <a href=\"https://isc.sans.edu/api/#ip\">DShield API documentation page</a> explains the <i>count</i> and <i>attacks</i> values (found in the result) as:<ul><li><b>Count:</b> (also reports or records) total number of packets blocked from this IP</li><li><b>Attacks:</b> (also targets) number of unique destination IP addresses for these packets</li></ul>",
-        "identifier": "lookup_ip",
-        "read_only": true,
-        "parameters": {
-          "ip": {
-            "description": "IP to Lookup", 
-            "data_type": "string",
-            "contains": ["ip"],
-            "order": 0,
-            "primary": true,
-            "required": true
-          }
-        },
-        "render": {
-          "width": 12,
-          "title": "Lookup Ip",
-          "type": "table",
-          "height": 5
-        },
-        "output": [
-          {
-            "data_path": "action_result.data.*.as",
-            "data_type": "numeric"
-          },
-          {
-            "data_path": "action_result.data.*.count",
-            "data_type": "numeric"
-          },
-          {
-            "data_path": "action_result.data.*.asname",
-            "data_type": "string"
-          },
-          {
-            "data_path": "action_result.data.*.assize",
-            "data_type": "numeric"
-          },
-          {
-            "data_path": "action_result.data.*.number",
-            "data_type": "string",
-            "contains": ["ip"]
-          },
-          {
-            "data_path": "action_result.data.*.attacks",
-            "data_type": "numeric"
-          },
-          {
-            "data_path": "action_result.data.*.maxdate",
-            "data_type": "string"
-          },
-          {
-            "data_path": "action_result.data.*.mindate",
-            "data_type": "string"
-          },
-          {
-            "data_path": "action_result.data.*.network",
-            "data_type": "string"
-          },
-          {
-            "data_path": "action_result.data.*.updated",
-            "data_type": "string"
-          },
-          {
-            "data_path": "action_result.data.*.ascountry",
-            "data_type": "string"
-          },
-          {
-            "data_path": "action_result.data.*.asabusecontact",
-            "data_type": "string",
-            "contains": ["email"]
-          },
-          {
-            "data_path": "action_result.data.*.comment",
-            "data_type": "string"
-          },
-          {
-            "data_path": "action_result.data.*.maxrisk",
-            "data_type": "string"
-          },
-          {
-            "data_path": "action_result.status",
-            "data_type": "string"
-          },
-          {
-            "data_path": "action_result.message",
-            "data_type": "string"
-          },
-          {
-            "data_path": "action_result.summary.count",
-            "data_type": "numeric",
-            "column_order": 1,
-            "column_name": "Count"
-          },
-          {
-            "data_path": "action_result.summary.attacks",
-            "data_type": "numeric",
-            "column_order": 2,
-            "column_name": "Attacks"
-          },
-          {
-            "data_path": "action_result.summary.maxdate",
-            "data_type": "string",
-            "column_order": 4,
-            "column_name": "Max Date"
-          },
-          {
-            "data_path": "action_result.summary.mindate",
-            "data_type": "string",
-            "column_order": 3,
-            "column_name": "Min Date"
-          },
-          {
-            "data_path": "action_result.parameter.ip",
-            "data_type": "string",
-            "contains": ["ip"],
-            "column_order": 0,
-            "column_name": "IP"
-          },
-          {
-            "data_path": "summary.total_objects",
-            "data_type": "numeric"
-          },
-          {
-            "data_path": "summary.total_objects_successful",
-            "data_type": "numeric"
-          },
-          {
-            "contains": [ "domain" ],
-            "data_path": "action_result.data.*.alexa.domains",
-            "data_type": "numeric"
-          },
-          {
-            "contains": [ "host name" ],
-            "data_path": "action_result.data.*.alexa.hostname",
-            "data_type": "string"
-          },
-          {
-            "data_path": "action_result.data.*.alexa.lastrank",
-            "data_type": "numeric"
-          },
-          {
-            "data_path": "action_result.data.*.alexa.lastseen",
-            "data_type": "string"
-          },
-          {
-            "data_path": "action_result.data.*.alexa.firstseen",
-            "data_type": "string"
-          },
-          {
-            "data_path": "action_result.data.*.threatfeeds.forumspam.lastseen",
-            "data_type": "string"
-          },
-          {
-            "data_path": "action_result.data.*.threatfeeds.forumspam.firstseen",
-            "data_type": "string"
-          },
-          {
-            "data_path": "action_result.data.*.threatfeeds.*.lastseen",
-            "data_type": "string"
-          },
-          {
-            "data_path": "action_result.data.*.threatfeeds.*.firstseen",
-            "data_type": "string"
-          }
-        ],
-        "versions": "EQ(*)"
-      }
+        {
+            "action": "lookup ip",
+            "description": "Get IP info from DShield",
+            "type": "investigate",
+            "verbose": "The <a href=\"https://isc.sans.edu/api/#ip\">DShield API documentation page</a> explains the <i>count</i> and <i>attacks</i> values (found in the result) as:<ul><li><b>Count:</b> (also reports or records) total number of packets blocked from this IP</li><li><b>Attacks:</b> (also targets) number of unique destination IP addresses for these packets</li></ul>",
+            "identifier": "lookup_ip",
+            "read_only": true,
+            "parameters": {
+                "ip": {
+                    "description": "IP to Lookup",
+                    "data_type": "string",
+                    "contains": [
+                        "ip"
+                    ],
+                    "order": 0,
+                    "primary": true,
+                    "required": true
+                }
+            },
+            "render": {
+                "width": 12,
+                "title": "Lookup Ip",
+                "type": "table",
+                "height": 5
+            },
+            "output": [
+                {
+                    "data_path": "action_result.data.*.as",
+                    "data_type": "numeric"
+                },
+                {
+                    "data_path": "action_result.data.*.count",
+                    "data_type": "numeric"
+                },
+                {
+                    "data_path": "action_result.data.*.asname",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.data.*.assize",
+                    "data_type": "numeric"
+                },
+                {
+                    "data_path": "action_result.data.*.number",
+                    "data_type": "string",
+                    "contains": [
+                        "ip"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.attacks",
+                    "data_type": "numeric"
+                },
+                {
+                    "data_path": "action_result.data.*.maxdate",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.data.*.mindate",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.data.*.network",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.data.*.updated",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.data.*.ascountry",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.data.*.asabusecontact",
+                    "data_type": "string",
+                    "contains": [
+                        "email"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.comment",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.data.*.maxrisk",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.summary.count",
+                    "data_type": "numeric",
+                    "column_order": 1,
+                    "column_name": "Count"
+                },
+                {
+                    "data_path": "action_result.summary.attacks",
+                    "data_type": "numeric",
+                    "column_order": 2,
+                    "column_name": "Attacks"
+                },
+                {
+                    "data_path": "action_result.summary.maxdate",
+                    "data_type": "string",
+                    "column_order": 4,
+                    "column_name": "Max Date"
+                },
+                {
+                    "data_path": "action_result.summary.mindate",
+                    "data_type": "string",
+                    "column_order": 3,
+                    "column_name": "Min Date"
+                },
+                {
+                    "data_path": "action_result.parameter.ip",
+                    "data_type": "string",
+                    "contains": [
+                        "ip"
+                    ],
+                    "column_order": 0,
+                    "column_name": "IP"
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric"
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric"
+                },
+                {
+                    "contains": [
+                        "domain"
+                    ],
+                    "data_path": "action_result.data.*.alexa.domains",
+                    "data_type": "numeric"
+                },
+                {
+                    "contains": [
+                        "host name"
+                    ],
+                    "data_path": "action_result.data.*.alexa.hostname",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.data.*.alexa.lastrank",
+                    "data_type": "numeric"
+                },
+                {
+                    "data_path": "action_result.data.*.alexa.lastseen",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.data.*.alexa.firstseen",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.data.*.threatfeeds.forumspam.lastseen",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.data.*.threatfeeds.forumspam.firstseen",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.data.*.threatfeeds.*.lastseen",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.data.*.threatfeeds.*.firstseen",
+                    "data_type": "string"
+                }
+            ],
+            "versions": "EQ(*)"
+        }
     ]
 }
