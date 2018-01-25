@@ -14,7 +14,7 @@
     "min_phantom_version": "3.0.159",
     "logo": "logo_dshield.svg",
     "logo_dark": "logo_dshield_dark.svg",
-    "license": "Copyright (c) Phantom Cyber Corporation 2016-2017",
+    "license": "Copyright (c) Phantom Cyber Corporation, 2016-2018",
     "configuration": {
         "ip": {
             "description": "IP to Lookup for Test Connectivity",
