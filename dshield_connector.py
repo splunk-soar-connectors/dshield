@@ -1,33 +1,25 @@
-# --
-# File: dshield/dshield_connector.py
+# File: dshield_connector.py
+# Copyright (c) 2016-2021 Splunk Inc.
 #
-# Copyright (c) Phantom Cyber Corporation, 2016-2018
-#
-# This unpublished material is proprietary to Phantom Cyber.
-# All rights reserved. The methods and
-# techniques described herein are considered trade secrets
-# and/or confidential. Reproduction or distribution, in whole
-# or in part, is forbidden except by express written permission
-# of Phantom Cyber.
-#
-# --
+# SPLUNK CONFIDENTIAL - Use or disclosure of this material in whole or in part
+# without a valid written license from Splunk Inc. is PROHIBITED.
 """ Code that implements calls made to the dshield web API"""
 
 # Phantom imports
 import phantom.app as phantom
 from phantom.base_connector import BaseConnector
 from phantom.action_result import ActionResult
-import phantom.utils as ph_utils
 
 # THIS Connector imports
 from dshield_consts import *
 
 import requests
 import simplejson as json
+import ipaddress
+from bs4 import UnicodeDammit
 
 
 class CertlyConnector(BaseConnector):
-
     # actions supported by this script
     ACTION_ID_LOOKUP_IP = "lookup_ip"
 
@@ -40,7 +32,7 @@ class CertlyConnector(BaseConnector):
         try:
             r = requests.get(DSHIELD_LOOKUP_URL + endpoint + '?json')
         except Exception as e:
-            return (action_result.set_status(phantom.APP_ERROR, DSHIELD_ERR_SERVER_CONNECTION, e), resp_json)
+            return action_result.set_status(phantom.APP_ERROR, DSHIELD_ERR_SERVER_CONNECTION, e), resp_json
 
         action_result.add_debug_data({'r_text': r.text if r else 'r is None'})
 
@@ -49,21 +41,22 @@ class CertlyConnector(BaseConnector):
         except Exception as e:
             # r.text is guaranteed to be NON None, it will be empty, but not None
             msg_string = r.text.replace('{', '').replace('}', '')
-            return (action_result.set_status(phantom.APP_ERROR, msg_string, e), resp_json)
+            return action_result.set_status(phantom.APP_ERROR, msg_string, e), resp_json
 
         # Check if there are any errors
         errors = resp_json.get('errors')
 
-        if (errors):
+        if errors:
             details = json.dumps(resp_json).replace('{', '').replace('}', '')
 
             return (action_result.set_status(phantom.APP_ERROR,
-                DSHIELD_ERR_FROM_SERVER.format(status=r.status_code, detail=details)), resp_json)
+                                             DSHIELD_ERR_FROM_SERVER.format(status=r.status_code, detail=details)),
+                    resp_json)
 
         # Handle/process any errors that we get back from the device
-        if (r.status_code == 200):
+        if r.status_code == 200:
             # Success
-            return (phantom.APP_SUCCESS, resp_json)
+            return phantom.APP_SUCCESS, resp_json
 
         # Failure
         action_result.add_data(resp_json)
@@ -71,7 +64,20 @@ class CertlyConnector(BaseConnector):
         details = json.dumps(resp_json).replace('{', '').replace('}', '')
 
         return (action_result.set_status(phantom.APP_ERROR,
-            DSHIELD_ERR_FROM_SERVER.format(status=r.status_code, detail=details)), resp_json)
+                                         DSHIELD_ERR_FROM_SERVER.format(status=r.status_code, detail=details)),
+                resp_json)
+
+    def _is_ip(self, input_ip_address):
+        """ Function that checks given address and return True if address is valid IPv4 or IPV6 address.
+        :param input_ip_address: IP address
+        :return: status (success/failure)
+        """
+        ip_address_input = input_ip_address
+        try:
+            ipaddress.ip_address(UnicodeDammit(ip_address_input).unicode_markup)
+        except:
+            return False
+        return True
 
     def _test_connectivity(self, param):
         """ Function that handles the test connectivity action, it is much simpler than other action handlers."""
@@ -80,11 +86,11 @@ class CertlyConnector(BaseConnector):
 
         ip = config.get(DSHIELD_JSON_IP)
 
-        if (not ip):
+        if not ip:
             self.save_progress("Please specify an IP to lookup")
             return self.set_status(phantom.APP_ERROR)
 
-        if (not ph_utils.is_ip(ip)):
+        if not self._is_ip(ip):
             self.save_progress("Please specify a valid IP to lookup")
             return self.set_status(phantom.APP_ERROR)
 
@@ -101,8 +107,7 @@ class CertlyConnector(BaseConnector):
         ret_val, response = self._make_rest_call('/ip/{0}'.format(DSHIELD_TC_IP), action_result)
 
         # Process errors
-        if (phantom.is_fail(ret_val)):
-
+        if phantom.is_fail(ret_val):
             # Dump error messages in the log
             self.debug_print(action_result.get_message())
 
@@ -129,7 +134,7 @@ class CertlyConnector(BaseConnector):
         ret_val, response = self._make_rest_call('/ip/{0}'.format(param[DSHIELD_JSON_IP]), action_result)
 
         # Process/parse the errors encountered while making the REST call.
-        if (phantom.is_fail(ret_val)):
+        if phantom.is_fail(ret_val):
             return action_result.get_status()
 
         try:
@@ -140,10 +145,10 @@ class CertlyConnector(BaseConnector):
         # set the data
         action_result.add_data(data)
         action_result.update_summary(
-                {'attacks': data.get('attacks'),
-                    'count': data.get('count'),
-                    'maxdate': data.get('maxdate'),
-                    'mindate': data.get('mindate')})
+            {'attacks': data.get('attacks'),
+             'count': data.get('count'),
+             'maxdate': data.get('maxdate'),
+             'mindate': data.get('mindate')})
 
         # set the status
         return action_result.set_status(phantom.APP_SUCCESS)
@@ -158,12 +163,13 @@ class CertlyConnector(BaseConnector):
         ret_val = phantom.APP_SUCCESS
 
         # Bunch if if..elif to process actions
-        if (action == self.ACTION_ID_LOOKUP_IP):
+        if action == self.ACTION_ID_LOOKUP_IP:
             ret_val = self._handle_lookup_ip(param)
-        elif (action == phantom.ACTION_ID_TEST_ASSET_CONNECTIVITY):
+        elif action == phantom.ACTION_ID_TEST_ASSET_CONNECTIVITY:
             ret_val = self._test_connectivity(param)
 
         return ret_val
+
 
 if __name__ == '__main__':
     """ Code that is executed when run in standalone debug mode
@@ -179,7 +185,6 @@ if __name__ == '__main__':
 
     # The first param is the input json file
     with open(sys.argv[1]) as f:
-
         # Load the input json file
         in_json = f.read()
         in_json = json.loads(in_json)
@@ -195,6 +200,6 @@ if __name__ == '__main__':
         ret_val = connector._handle_action(json.dumps(in_json), None)
 
         # Dump the return value
-        print ret_val
+        print(ret_val)
 
     exit(0)
