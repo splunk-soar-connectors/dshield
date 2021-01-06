@@ -1,7 +1,7 @@
 {
     "appid": "efc1ac17-c75c-4c24-8233-161e68e8e7f4",
     "name": "DShield",
-    "description": "This app implements investigative action that query the DShield web API",
+    "description": "This app implements investigative action that queries the DShield web API",
     "publisher": "Splunk",
     "type": "reputation",
     "main_module": "dshield_connector.py",

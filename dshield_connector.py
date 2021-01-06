@@ -84,7 +84,7 @@ class CertlyConnector(BaseConnector):
 
         config = self.get_config()
 
-        ip = config.get(DSHIELD_JSON_IP)
+        ip = config.get(DSHIELD_JSON_IP, DSHIELD_TC_IP)
 
         if not ip:
             self.save_progress("Please specify an IP to lookup")
@@ -104,7 +104,7 @@ class CertlyConnector(BaseConnector):
         self.save_progress("Looking up the IP to check connectivity")
 
         # Make the rest endpoint call
-        ret_val, response = self._make_rest_call('/ip/{0}'.format(DSHIELD_TC_IP), action_result)
+        ret_val, response = self._make_rest_call('/ip/{0}'.format(ip), action_result)
 
         # Process errors
         if phantom.is_fail(ret_val):
