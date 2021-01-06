@@ -1,7 +1,7 @@
 {
     "appid": "efc1ac17-c75c-4c24-8233-161e68e8e7f4",
     "name": "DShield",
-    "description": "Implements <b>lookup ip</b> action by querying the DShield web API",
+    "description": "This app implements investigative action that query the DShield web API",
     "publisher": "Splunk",
     "type": "reputation",
     "main_module": "dshield_connector.py",
@@ -12,10 +12,11 @@
     "product_name": "DShield",
     "product_version_regex": ".*",
     "min_phantom_version": "4.9.39220",
+    "app_wizard_version": "1.0.0",
     "python_version": "3",
     "logo": "logo_dshield.svg",
     "logo_dark": "logo_dshield_dark.svg",
-    "license": "Copyright (c) 2016-2021 Splunk Inc.",
+    "license": "Copyright (c) 2017-2021 Splunk Inc.",
     "latest_tested_versions": [
         ""
     ],
