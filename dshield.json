@@ -1,26 +1,30 @@
 {
     "appid": "efc1ac17-c75c-4c24-8233-161e68e8e7f4",
     "name": "DShield",
-    "description": "Implements <b>lookup ip</b> action by querying the DShield web API",
-    "publisher": "Phantom",
+    "description": "This app implements investigative action that queries the DShield web API",
+    "publisher": "Splunk",
     "type": "reputation",
-    "main_module": "dshield_connector.pyc",
-    "app_version": "1.0.8",
-    "utctime_updated": "2018-01-26T00:48:00.000000Z",
+    "main_module": "dshield_connector.py",
+    "app_version": "2.0.1",
+    "utctime_updated": "2021-01-07T22:45:40.000000Z",
     "package_name": "phantom_dshield",
     "product_vendor": "DShield",
     "product_name": "DShield",
     "product_version_regex": ".*",
-    "min_phantom_version": "3.0.159",
+    "min_phantom_version": "4.9.39220",
+    "app_wizard_version": "1.0.0",
+    "python_version": "3",
     "logo": "logo_dshield.svg",
     "logo_dark": "logo_dshield_dark.svg",
-    "license": "Copyright (c) Phantom Cyber Corporation, 2016-2018",
+    "license": "Copyright (c) 2017-2021 Splunk Inc.",
+    "latest_tested_versions": [
+        ""
+    ],
     "configuration": {
         "ip": {
             "description": "IP to Lookup for Test Connectivity",
             "data_type": "string",
             "order": 0,
-            "required": false,
             "default": "8.8.8.8"
         }
     },
@@ -47,7 +51,8 @@
                     "description": "IP to Lookup",
                     "data_type": "string",
                     "contains": [
-                        "ip"
+                        "ip",
+                        "ipv6"
                     ],
                     "order": 0,
                     "primary": true,
@@ -62,115 +67,25 @@
             },
             "output": [
                 {
-                    "data_path": "action_result.data.*.as",
-                    "data_type": "numeric"
-                },
-                {
-                    "data_path": "action_result.data.*.count",
-                    "data_type": "numeric"
-                },
-                {
-                    "data_path": "action_result.data.*.asname",
-                    "data_type": "string"
-                },
-                {
-                    "data_path": "action_result.data.*.assize",
-                    "data_type": "numeric"
-                },
-                {
-                    "data_path": "action_result.data.*.number",
-                    "data_type": "string",
-                    "contains": [
-                        "ip"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.attacks",
-                    "data_type": "numeric"
-                },
-                {
-                    "data_path": "action_result.data.*.maxdate",
-                    "data_type": "string"
-                },
-                {
-                    "data_path": "action_result.data.*.mindate",
-                    "data_type": "string"
-                },
-                {
-                    "data_path": "action_result.data.*.network",
-                    "data_type": "string"
-                },
-                {
-                    "data_path": "action_result.data.*.updated",
-                    "data_type": "string"
-                },
-                {
-                    "data_path": "action_result.data.*.ascountry",
-                    "data_type": "string"
-                },
-                {
-                    "data_path": "action_result.data.*.asabusecontact",
-                    "data_type": "string",
-                    "contains": [
-                        "email"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.comment",
-                    "data_type": "string"
-                },
-                {
-                    "data_path": "action_result.data.*.maxrisk",
-                    "data_type": "string"
-                },
-                {
                     "data_path": "action_result.status",
-                    "data_type": "string"
-                },
-                {
-                    "data_path": "action_result.message",
-                    "data_type": "string"
-                },
-                {
-                    "data_path": "action_result.summary.count",
-                    "data_type": "numeric",
-                    "column_order": 1,
-                    "column_name": "Count"
-                },
-                {
-                    "data_path": "action_result.summary.attacks",
-                    "data_type": "numeric",
-                    "column_order": 2,
-                    "column_name": "Attacks"
-                },
-                {
-                    "data_path": "action_result.summary.maxdate",
                     "data_type": "string",
-                    "column_order": 4,
-                    "column_name": "Max Date"
-                },
-                {
-                    "data_path": "action_result.summary.mindate",
-                    "data_type": "string",
-                    "column_order": 3,
-                    "column_name": "Min Date"
+                    "example_values": [
+                        "success",
+                        "failed"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.ip",
                     "data_type": "string",
                     "contains": [
-                        "ip"
+                        "ip",
+                        "ipv6"
                     ],
                     "column_order": 0,
-                    "column_name": "IP"
-                },
-                {
-                    "data_path": "summary.total_objects",
-                    "data_type": "numeric"
-                },
-                {
-                    "data_path": "summary.total_objects_successful",
-                    "data_type": "numeric"
+                    "column_name": "IP",
+                    "example_values": [
+                        "8.8.8.8"
+                    ]
                 },
                 {
                     "contains": [
@@ -178,6 +93,10 @@
                     ],
                     "data_path": "action_result.data.*.alexa.domains",
                     "data_type": "numeric"
+                },
+                {
+                    "data_path": "action_result.data.*.alexa.firstseen",
+                    "data_type": "string"
                 },
                 {
                     "contains": [
@@ -195,15 +114,70 @@
                     "data_type": "string"
                 },
                 {
-                    "data_path": "action_result.data.*.alexa.firstseen",
+                    "data_path": "action_result.data.*.as",
+                    "data_type": "numeric"
+                },
+                {
+                    "data_path": "action_result.data.*.asabusecontact",
+                    "data_type": "string",
+                    "contains": [
+                        "email"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ascountry",
                     "data_type": "string"
                 },
                 {
-                    "data_path": "action_result.data.*.threatfeeds.forumspam.lastseen",
+                    "data_path": "action_result.data.*.asname",
                     "data_type": "string"
                 },
                 {
-                    "data_path": "action_result.data.*.threatfeeds.forumspam.firstseen",
+                    "data_path": "action_result.data.*.assize",
+                    "data_type": "numeric"
+                },
+                {
+                    "data_path": "action_result.data.*.attacks",
+                    "data_type": "numeric"
+                },
+                {
+                    "data_path": "action_result.data.*.cloud",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.data.*.comment",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.data.*.count",
+                    "data_type": "numeric"
+                },
+                {
+                    "data_path": "action_result.data.*.maxdate",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.data.*.maxrisk",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.data.*.mindate",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.data.*.network",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.data.*.number",
+                    "data_type": "string",
+                    "contains": [
+                        "ip",
+                        "ipv6"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.threatfeeds.*.firstseen",
                     "data_type": "string"
                 },
                 {
@@ -211,8 +185,83 @@
                     "data_type": "string"
                 },
                 {
-                    "data_path": "action_result.data.*.threatfeeds.*.firstseen",
+                    "data_path": "action_result.data.*.threatfeeds.forumspam.firstseen",
                     "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.data.*.threatfeeds.forumspam.lastseen",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.data.*.threatfeeds.matsnu.firstseen",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.data.*.threatfeeds.matsnu.lastseen",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.data.*.threatfeeds.miner.firstseen",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.data.*.threatfeeds.miner.lastseen",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.data.*.updated",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.summary.attacks",
+                    "data_type": "numeric",
+                    "column_order": 2,
+                    "column_name": "Attacks",
+                    "example_values": [
+                        23
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.count",
+                    "data_type": "numeric",
+                    "column_order": 1,
+                    "column_name": "Count",
+                    "example_values": [
+                        132
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.maxdate",
+                    "data_type": "string",
+                    "column_order": 4,
+                    "column_name": "Max Date",
+                    "example_values": [
+                        "2020-12-19"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary.mindate",
+                    "data_type": "string",
+                    "column_order": 3,
+                    "column_name": "Min Date",
+                    "example_values": [
+                        "2020-12-19"
+                    ]
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string",
+                    "example_values": [
+                        "Attacks: 23, Count: 132, Maxdate: 2020-12-19, Mindate: 2020-12-19"
+                    ]
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric"
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric"
                 }
             ],
             "versions": "EQ(*)"
