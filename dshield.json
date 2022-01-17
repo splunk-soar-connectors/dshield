@@ -17,7 +17,7 @@
     "python_version": "3",
     "logo": "logo_dshield.svg",
     "logo_dark": "logo_dshield_dark.svg",
-    "license": "Copyright (c) 2017-2021 Splunk Inc.",
+    "license": "Copyright (c) 2017-2022 Splunk Inc.",
     "latest_tested_versions": [
         ""
     ],
