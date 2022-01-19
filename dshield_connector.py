@@ -14,18 +14,18 @@
 # and limitations under the License.
 """ Code that implements calls made to the dshield web API"""
 
+import ipaddress
+
 # Phantom imports
 import phantom.app as phantom
-from phantom.base_connector import BaseConnector
+import requests
+import simplejson as json
+from bs4 import UnicodeDammit
 from phantom.action_result import ActionResult
+from phantom.base_connector import BaseConnector
 
 # THIS Connector imports
 from dshield_consts import *
-
-import requests
-import simplejson as json
-import ipaddress
-from bs4 import UnicodeDammit
 
 
 class CertlyConnector(BaseConnector):
@@ -187,6 +187,7 @@ if __name__ == '__main__':
 
     # Imports
     import sys
+
     import pudb
 
     # Breakpoint at runtime

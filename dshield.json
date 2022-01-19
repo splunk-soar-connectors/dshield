@@ -11,13 +11,13 @@
     "product_vendor": "DShield",
     "product_name": "DShield",
     "product_version_regex": ".*",
-    "min_phantom_version": "4.9.39220",
+    "min_phantom_version": "5.0.0",
     "fips_compliant": true,
     "app_wizard_version": "1.0.0",
     "python_version": "3",
     "logo": "logo_dshield.svg",
     "logo_dark": "logo_dshield_dark.svg",
-    "license": "Copyright (c) 2017-2021 Splunk Inc.",
+    "license": "Copyright (c) 2017-2022 Splunk Inc.",
     "latest_tested_versions": [
         ""
     ],
