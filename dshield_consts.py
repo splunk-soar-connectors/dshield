@@ -24,3 +24,5 @@ DSHIELD_ERR_SERVER_CONNECTION = "Error connecting to server"
 DSHIELD_USING_BASE_URL = "Using Base URL: {0}"
 
 DSHIELD_TC_IP = "70.91.145.10"
+
+DEFAULT_TIMEOUT = 30  # seconds

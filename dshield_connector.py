@@ -39,7 +39,7 @@ class CertlyConnector(BaseConnector):
 
         # Make the call
         try:
-            r = requests.get(DSHIELD_LOOKUP_URL + endpoint + '?json')
+            r = requests.get(DSHIELD_LOOKUP_URL + endpoint + '?json', timeout=DEFAULT_TIMEOUT)
         except Exception as e:
             return action_result.set_status(phantom.APP_ERROR, DSHIELD_ERR_SERVER_CONNECTION, e), resp_json
 
@@ -212,4 +212,4 @@ if __name__ == '__main__':
         # Dump the return value
         print(ret_val)
 
-    exit(0)
+    sys.exit(0)
