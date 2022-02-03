@@ -1,22 +1,31 @@
 # File: dshield_connector.py
-# Copyright (c) 2017-2021 Splunk Inc.
 #
-# SPLUNK CONFIDENTIAL - Use or disclosure of this material in whole or in part
-# without a valid written license from Splunk Inc. is PROHIBITED.
+# Copyright (c) 2017-2022 Splunk Inc.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software distributed under
+# the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+# either express or implied. See the License for the specific language governing permissions
+# and limitations under the License.
 """ Code that implements calls made to the dshield web API"""
+
+import ipaddress
 
 # Phantom imports
 import phantom.app as phantom
-from phantom.base_connector import BaseConnector
+import requests
+import simplejson as json
+from bs4 import UnicodeDammit
 from phantom.action_result import ActionResult
+from phantom.base_connector import BaseConnector
 
 # THIS Connector imports
 from dshield_consts import *
-
-import requests
-import simplejson as json
-import ipaddress
-from bs4 import UnicodeDammit
 
 
 class CertlyConnector(BaseConnector):
@@ -30,7 +39,7 @@ class CertlyConnector(BaseConnector):
 
         # Make the call
         try:
-            r = requests.get(DSHIELD_LOOKUP_URL + endpoint + '?json')
+            r = requests.get(DSHIELD_LOOKUP_URL + endpoint + '?json', timeout=DEFAULT_TIMEOUT)
         except Exception as e:
             return action_result.set_status(phantom.APP_ERROR, DSHIELD_ERR_SERVER_CONNECTION, e), resp_json
 
@@ -178,6 +187,7 @@ if __name__ == '__main__':
 
     # Imports
     import sys
+
     import pudb
 
     # Breakpoint at runtime
@@ -202,4 +212,4 @@ if __name__ == '__main__':
         # Dump the return value
         print(ret_val)
 
-    exit(0)
+    sys.exit(0)
