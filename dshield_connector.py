@@ -133,6 +133,7 @@ class CertlyConnector(BaseConnector):
         return self.set_status_save_progress(phantom.APP_SUCCESS, DSHIELD_SUCC_CONNECTIVITY_TEST)
 
     def _handle_lookup_ip(self, param):
+        self.save_progress("Running action - handle lookup id")
 
         action_result = self.add_action_result(ActionResult(dict(param)))
 
