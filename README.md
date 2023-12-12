@@ -2,11 +2,11 @@
 # DShield
 
 Publisher: Splunk  
-Connector Version: 2\.0\.6  
+Connector Version: 2.0.7  
 Product Vendor: DShield  
 Product Name: DShield  
-Product Version Supported (regex): "\.\*"  
-Minimum Product Version: 5\.1\.0  
+Product Version Supported (regex): ".\*"  
+Minimum Product Version: 5.1.0  
 
 This app implements investigative action that queries the DShield web API
 
@@ -39,7 +39,7 @@ Get IP info from DShield
 Type: **investigate**  
 Read only: **True**
 
-The <a href="https\://isc\.sans\.edu/api/\#ip">DShield API documentation page</a> explains the <i>count</i> and <i>attacks</i> values \(found in the result\) as\:<ul><li><b>Count\:</b> \(also reports or records\) total number of packets blocked from this IP</li><li><b>Attacks\:</b> \(also targets\) number of unique destination IP addresses for these packets</li></ul>
+The <a href="https://isc.sans.edu/api/#ip">DShield API documentation page</a> explains the <i>count</i> and <i>attacks</i> values (found in the result) as:<ul><li><b>Count:</b> (also reports or records) total number of packets blocked from this IP</li><li><b>Attacks:</b> (also targets) number of unique destination IP addresses for these packets</li></ul>
 
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
@@ -47,42 +47,42 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 **ip** |  required  | IP to Lookup | string |  `ip`  `ipv6` 
 
 #### Action Output
-DATA PATH | TYPE | CONTAINS
---------- | ---- | --------
-action\_result\.status | string | 
-action\_result\.parameter\.ip | string |  `ip`  `ipv6` 
-action\_result\.data\.\*\.alexa\.domains | numeric |  `domain` 
-action\_result\.data\.\*\.alexa\.firstseen | string | 
-action\_result\.data\.\*\.alexa\.hostname | string |  `host name` 
-action\_result\.data\.\*\.alexa\.lastrank | numeric | 
-action\_result\.data\.\*\.alexa\.lastseen | string | 
-action\_result\.data\.\*\.as | numeric | 
-action\_result\.data\.\*\.asabusecontact | string |  `email` 
-action\_result\.data\.\*\.ascountry | string | 
-action\_result\.data\.\*\.asname | string | 
-action\_result\.data\.\*\.assize | numeric | 
-action\_result\.data\.\*\.attacks | numeric | 
-action\_result\.data\.\*\.cloud | string | 
-action\_result\.data\.\*\.comment | string | 
-action\_result\.data\.\*\.count | numeric | 
-action\_result\.data\.\*\.maxdate | string | 
-action\_result\.data\.\*\.maxrisk | string | 
-action\_result\.data\.\*\.mindate | string | 
-action\_result\.data\.\*\.network | string | 
-action\_result\.data\.\*\.number | string |  `ip`  `ipv6` 
-action\_result\.data\.\*\.threatfeeds\.\*\.firstseen | string | 
-action\_result\.data\.\*\.threatfeeds\.\*\.lastseen | string | 
-action\_result\.data\.\*\.threatfeeds\.forumspam\.firstseen | string | 
-action\_result\.data\.\*\.threatfeeds\.forumspam\.lastseen | string | 
-action\_result\.data\.\*\.threatfeeds\.matsnu\.firstseen | string | 
-action\_result\.data\.\*\.threatfeeds\.matsnu\.lastseen | string | 
-action\_result\.data\.\*\.threatfeeds\.miner\.firstseen | string | 
-action\_result\.data\.\*\.threatfeeds\.miner\.lastseen | string | 
-action\_result\.data\.\*\.updated | string | 
-action\_result\.summary\.attacks | numeric | 
-action\_result\.summary\.count | numeric | 
-action\_result\.summary\.maxdate | string | 
-action\_result\.summary\.mindate | string | 
-action\_result\.message | string | 
-summary\.total\_objects | numeric | 
-summary\.total\_objects\_successful | numeric | 
+DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
+--------- | ---- | -------- | --------------
+action_result.status | string |  |   success  failed 
+action_result.parameter.ip | string |  `ip`  `ipv6`  |   8.8.8.8 
+action_result.data.\*.alexa.domains | numeric |  `domain`  |  
+action_result.data.\*.alexa.firstseen | string |  |  
+action_result.data.\*.alexa.hostname | string |  `host name`  |  
+action_result.data.\*.alexa.lastrank | numeric |  |  
+action_result.data.\*.alexa.lastseen | string |  |  
+action_result.data.\*.as | numeric |  |  
+action_result.data.\*.asabusecontact | string |  `email`  |  
+action_result.data.\*.ascountry | string |  |  
+action_result.data.\*.asname | string |  |  
+action_result.data.\*.assize | numeric |  |  
+action_result.data.\*.attacks | numeric |  |  
+action_result.data.\*.cloud | string |  |  
+action_result.data.\*.comment | string |  |  
+action_result.data.\*.count | numeric |  |  
+action_result.data.\*.maxdate | string |  |  
+action_result.data.\*.maxrisk | string |  |  
+action_result.data.\*.mindate | string |  |  
+action_result.data.\*.network | string |  |  
+action_result.data.\*.number | string |  `ip`  `ipv6`  |  
+action_result.data.\*.threatfeeds.\*.firstseen | string |  |  
+action_result.data.\*.threatfeeds.\*.lastseen | string |  |  
+action_result.data.\*.threatfeeds.forumspam.firstseen | string |  |  
+action_result.data.\*.threatfeeds.forumspam.lastseen | string |  |  
+action_result.data.\*.threatfeeds.matsnu.firstseen | string |  |  
+action_result.data.\*.threatfeeds.matsnu.lastseen | string |  |  
+action_result.data.\*.threatfeeds.miner.firstseen | string |  |  
+action_result.data.\*.threatfeeds.miner.lastseen | string |  |  
+action_result.data.\*.updated | string |  |  
+action_result.summary.attacks | numeric |  |   23 
+action_result.summary.count | numeric |  |   132 
+action_result.summary.maxdate | string |  |   2020-12-19 
+action_result.summary.mindate | string |  |   2020-12-19 
+action_result.message | string |  |   Attacks: 23, Count: 132, Maxdate: 2020-12-19, Mindate: 2020-12-19 
+summary.total_objects | numeric |  |  
+summary.total_objects_successful | numeric |  |  
