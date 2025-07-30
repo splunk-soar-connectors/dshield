@@ -5,8 +5,8 @@
     "publisher": "Splunk",
     "type": "reputation",
     "main_module": "dshield_connector.py",
-    "app_version": "2.0.8",
-    "utctime_updated": "2025-04-11T17:42:56.397779Z",
+    "app_version": "2.0.9",
+    "utctime_updated": "2025-07-30T17:44:48.348393Z",
     "package_name": "phantom_dshield",
     "product_vendor": "DShield",
     "product_name": "DShield",
@@ -14,7 +14,10 @@
     "min_phantom_version": "5.1.0",
     "fips_compliant": true,
     "app_wizard_version": "1.0.0",
-    "python_version": ["3.9", "3.13"],
+    "python_version": [
+        "3.9",
+        "3.13"
+    ],
     "logo": "logo_dshield.svg",
     "logo_dark": "logo_dshield_dark.svg",
     "license": "Copyright (c) 2017-2025 Splunk Inc.",
