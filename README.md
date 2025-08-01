@@ -1,7 +1,7 @@
 # DShield
 
 Publisher: Splunk \
-Connector Version: 2.0.9 \
+Connector Version: 2.0.10 \
 Product Vendor: DShield \
 Product Name: DShield \
 Minimum Product Version: 5.1.0
