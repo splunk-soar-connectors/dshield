@@ -14,10 +14,7 @@
     "min_phantom_version": "5.1.0",
     "fips_compliant": true,
     "app_wizard_version": "1.0.0",
-    "python_version": [
-        "3.9",
-        "3.13"
-    ],
+    "python_version": "3.9, 3.13",
     "logo": "logo_dshield.svg",
     "logo_dark": "logo_dshield_dark.svg",
     "license": "Copyright (c) 2017-2025 Splunk Inc.",
