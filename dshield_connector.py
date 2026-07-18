@@ -1,6 +1,6 @@
 # File: dshield_connector.py
 #
-# Copyright (c) 2017-2025 Splunk Inc.
+# Copyright (c) 2017-2026 Splunk Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,6 +15,7 @@
 """Code that implements calls made to the dshield web API"""
 
 import ipaddress
+from urllib.parse import quote
 
 # Phantom imports
 import phantom.app as phantom
@@ -109,7 +110,7 @@ class CertlyConnector(BaseConnector):
         self.save_progress("Looking up the IP to check connectivity")
 
         # Make the rest endpoint call
-        ret_val, response = self._make_rest_call(f"/ip/{ip}", action_result)
+        ret_val, response = self._make_rest_call(f"/ip/{quote(ip, safe='')}", action_result)
 
         # Process errors
         if phantom.is_fail(ret_val):
@@ -133,11 +134,15 @@ class CertlyConnector(BaseConnector):
 
         action_result = self.add_action_result(ActionResult(dict(param)))
 
+        ip = param[DSHIELD_JSON_IP]
+        if not self._is_ip(ip):
+            return action_result.set_status(phantom.APP_ERROR, "Please specify a valid IP to lookup")
+
         # Progress
         self.save_progress(DSHIELD_USING_BASE_URL.format(DSHIELD_LOOKUP_URL))
 
         # Make the rest call
-        ret_val, response = self._make_rest_call(f"/ip/{param[DSHIELD_JSON_IP]}", action_result)
+        ret_val, response = self._make_rest_call(f"/ip/{quote(ip, safe='')}", action_result)
 
         # Process/parse the errors encountered while making the REST call.
         if phantom.is_fail(ret_val):
