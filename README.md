@@ -1,9 +1,9 @@
 # DShield
 
-Publisher: Splunk \
-Connector Version: 2.0.10 \
-Product Vendor: DShield \
-Product Name: DShield \
+Publisher: Splunk <br>
+Connector Version: 2.0.10 <br>
+Product Vendor: DShield <br>
+Product Name: DShield <br>
 Minimum Product Version: 5.1.0
 
 This app implements investigative action that queries the DShield web API
@@ -18,14 +18,14 @@ VARIABLE | REQUIRED | TYPE | DESCRIPTION
 
 ### Supported Actions
 
-[test connectivity](#action-test-connectivity) - Validate the asset configuration for connectivity \
+[test connectivity](#action-test-connectivity) - Validate the asset configuration for connectivity <br>
 [lookup ip](#action-lookup-ip) - Get IP info from DShield
 
 ## action: 'test connectivity'
 
 Validate the asset configuration for connectivity
 
-Type: **test** \
+Type: **test** <br>
 Read only: **True**
 
 #### Action Parameters
@@ -40,7 +40,7 @@ No Output
 
 Get IP info from DShield
 
-Type: **investigate** \
+Type: **investigate** <br>
 Read only: **True**
 
 The <a href="https://isc.sans.edu/api/#ip">DShield API documentation page</a> explains the <i>count</i> and <i>attacks</i> values (found in the result) as:<ul><li><b>Count:</b> (also reports or records) total number of packets blocked from this IP</li><li><b>Attacks:</b> (also targets) number of unique destination IP addresses for these packets</li></ul>
@@ -97,7 +97,7 @@ ______________________________________________________________________
 
 Auto-generated Splunk SOAR Connector documentation.
 
-Copyright 2025 Splunk Inc.
+Copyright 2026 Splunk Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
