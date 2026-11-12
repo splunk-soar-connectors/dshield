@@ -1,3 +1,3 @@
 **Unreleased**
 
-* Declare additional DShield threat feed fields in the lookup IP output schema.
+* Migrate the DShield app from the legacy BaseConnector framework to the Splunk SOAR SDK.
