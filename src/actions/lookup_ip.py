@@ -35,9 +35,21 @@ class FeedOutput(ActionOutput):
 
 
 class ThreatfeedsOutput(PermissiveActionOutput):
+    blocklistde110: FeedOutput | None = None
+    blocklistde143: FeedOutput | None = None
+    blocklistde25: FeedOutput | None = None
+    blocklistde993: FeedOutput | None = None
+    blocklistdecourierimap: FeedOutput | None = None
+    ciarmy: FeedOutput | None = None
     forumspam: FeedOutput | None = None
+    mastodon: FeedOutput | None = None
     matsnu: FeedOutput | None = None
     miner: FeedOutput | None = None
+    openbl_smtp: FeedOutput | None = None
+    qrator: FeedOutput | None = None
+    shodan: FeedOutput | None = None
+    threatview: FeedOutput | None = None
+    webiron: FeedOutput | None = None
 
 
 class LookupIpOutput(ActionOutput):
